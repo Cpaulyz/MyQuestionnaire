@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.computer.network.mapper.UserMapper">
+                                                                        <!--这两个代表插入后会返回id-->
+    <insert id="addUser" parameterType="com.computer.network.vo.UserVO" useGeneratedKeys="true" keyProperty="id">
+        insert into USER(name,password) values(#{name},#{password})
+    </insert>
+
+    <select id="getUserByName" resultType="com.computer.network.vo.UserVO">
+        select * from USER where name=#{name}
+    </select>
+
+</mapper>

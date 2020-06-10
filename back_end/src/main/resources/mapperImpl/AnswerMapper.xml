@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.computer.network.mapper.AnswerMapper">
+    <insert id="addAnswer" parameterType="com.computer.network.vo.AnswerVO">
+        insert into ANSWER(paper_id,question_id,question_type,create_time,answer_content) values(#{paperId},#{questionId},#{questionType},#{createTime},#{answerContent})
+    </insert>
+
+    <select id="selectByQuestionId" resultType="com.computer.network.vo.AnswerVO">
+        select * from ANSWER where question_id=#{questionId} order by id
+    </select>
+
+
+<!--    <resultMap id="AnswerVO" type="com.example.hotel.vo.AnswerVO">-->
+<!--        <result column="id" property="id"></result>-->
+<!--        <result column="question_id" property="questionId"></result>-->
+<!--        <result column="paper_id" property="paperId"></result>-->
+<!--        <result column="question_type" property="questionType"></result>-->
+<!--        <result column="create_time" property="createTime"></result>-->
+<!--        <result column="answer_content" property="answerContent"></result>-->
+<!--    </resultMap>-->
+</mapper>

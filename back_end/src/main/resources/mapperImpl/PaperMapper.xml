@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.computer.network.mapper.PaperMapper">
+    <insert id="addPaper" parameterType="com.computer.network.vo.PaperVO" useGeneratedKeys="true" keyProperty="id">
+        insert into PAPER(user_id,title,description,start_time,end_time,status) values(#{userId},#{title},#{description},#{startTime},#{endTime},#{status})
+    </insert>
+    <update id="updatePaper" parameterType="com.computer.network.vo.PaperVO">
+        update PAPER set title=#{title},description=#{description},start_time=#{startTime},end_time=#{endTime},status=#{status} where id=#{id}
+    </update>
+    <delete id="deletePaper">
+        delete from PAPER where id=#{paperId}
+    </delete>
+    <select id="selectByPaperId" resultType="com.computer.network.vo.PaperVO">
+        select * from PAPER where id=#{paperId}
+    </select>
+    <select id="getUserPapers" resultType="com.computer.network.vo.PaperVO">
+        select * from PAPER where user_id=#{userId}
+    </select>
+
+    <select id="getTimePapers" resultType="com.computer.network.vo.PaperVO">
+        select * from PAPER where start_time is not null
+    </select>
+
+    <update id="changeStatus">
+        update PAPER set status=#{paperStatus} where id=#{id}
+    </update>
+
+<!--    <resultMap id="PaperVO" type="com.example.hotel.vo.PaperVO">-->
+<!--        <result column="id" property="id"></result>-->
+<!--        <result column="user_id" property="userId"></result>-->
+<!--        <result column="title" property="title"></result>-->
+<!--        <result column="description" property="description"></result>-->
+<!--        <result column="start_time" property="startTime"></result>-->
+<!--        <result column="end_time" property="endTime"></result>-->
+<!--        <result column="status" property="status" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"></result>-->
+<!--    </resultMap>-->
+</mapper>
