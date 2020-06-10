@@ -17,15 +17,24 @@
 ## 目录结构
 
 ├─back_end  后端文件
+
 │  ├─docs 文档
+
 │  └─src
+
 │      └─main
+
 │          ├─java
+
 │          └─resources
+
 │              └─sql 数据库文件
+
 └─front_end  前端文件
-    ├─public
-    └─src
+
+​    ├─public
+
+​    └─src
 
 后端开发仓库:https://github.com/Barney666/Questionnaire
 
