@@ -46,7 +46,8 @@ export default {
       'set_createPaperVisible',
     ]),
     ...mapActions([
-      'createNewPaper'
+      'createNewPaper',
+      'editOldPaper'
     ]),
     createPaper() {
       if(this.title === '') {
@@ -58,11 +59,17 @@ export default {
         description: this.description
       }
       // console.log(paperInfo)
-      this.createNewPaper(paperInfo)
-      if (this.$route.path !== '/editor/create') {
-        this.$router.push('/editor/create')
-      }
-      this.set_createPaperVisible(false)
+      this.createNewPaper(paperInfo).then(paperId => {
+        if(!paperId) {
+          this.$message.error('创建失败，请重新整理')
+          return
+        }
+        console.log(`paperId: ${paperId}`)
+        this.$router.push(`/editor/create/${paperId}`)
+        this.editOldPaper(paperId)
+        this.set_createPaperVisible(false)
+      })
+
     },
     handleClose(done) {
       this.$confirm('确认关闭?')

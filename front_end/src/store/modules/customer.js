@@ -1,10 +1,11 @@
 import { reviewPaperAPI, checkPaperAPI, updatePaperAPI } from '../../api/paper/paper'
-import { addAnswersAPI } from '../../api/customer/answer'
+import { addAnswersAPI, reviewAnswersAPI } from '../../api/customer/answer'
 
 const paper = {
   state: {
     paper: {}, /* Paper */
-    paperStatistic: {}
+    paperStatistic: {},
+    answers: []
   },
   mutations: {
     set_paper(state, paper) {
@@ -12,6 +13,9 @@ const paper = {
     },
     set_paperStatistic(state,paperStatistic){
       state.paperStatistic = paperStatistic
+    },
+    set_answers(state, answers) {
+      state.answers = answers
     }
   },
   actions: {
@@ -34,83 +38,11 @@ const paper = {
       } else {
         return false
       }
-      // const paper = {
-      //   title: '问卷标题，大概最多会有20个字（。。。）',
-      //   description: '一个大概会有30～50个字的说明一个大概会有30～50个字的说明一个大概会有30～50个字的说明一个大概会有30～50个字的说明一个大概会有30～50个字的说明一个大概会有30～50个字的说明一个大概会有30～50个字的说明一个大概会有30～50个字的说明一个大概会有30～50个字的说明',
-      //   questionList: [
-      //     {
-      //       id: 1,
-      //       type: 1,
-      //       title: '单选题一',
-      //       options: [
-      //         {
-      //           id: 1,
-      //           questionId: 1,
-      //           content: '单选选项一'
-      //         },
-      //         {
-      //           id: 2,
-      //           questionId: 1,
-      //           content: '单选选项二'
-      //         },
-      //         {
-      //           id: 3,
-      //           questionId: 1,
-      //           content: '单选选项三'
-      //         },
-      //       ],
-      //     },
-      //     {
-      //       id: 2,
-      //       type: 2,
-      //       title: '多选题一',
-      //       options: [
-      //         {
-      //           id: 4,
-      //           questionId: 2,
-      //           content: '多选选项一'
-      //         },
-      //         {
-      //           id: 5,
-      //           questionId: 2,
-      //           content: '多选选项二'
-      //         },
-      //         {
-      //           id: 6,
-      //           questionId: 2,
-      //           content: '多选选项三'
-      //         },
-      //         {
-      //           id: 7,
-      //           questionId: 2,
-      //           content: '多选选项4'
-      //         },
-      //         {
-      //           id: 8,
-      //           questionId: 2,
-      //           content: '多选选项5'
-      //         },
-      //         {
-      //           id: 9,
-      //           questionId: 2,
-      //           content: '多选选项6'
-      //         },
-      //       ],
-      //     },
-      //     {
-      //       id: 3,
-      //       type: 3,
-      //       title: '简答',
-      //     },
-      //   ],
-      // }
-
-      // console.log('get paper in actions')
-      // console.log(paper)
     },
     getFullPaperStatistic: async({commit},paperId) =>{
       console.log(`get paperStatistic with paperId: ${paperId}`)
       const res = await reviewPaperAPI(paperId)
+      console.log(res)
       if(res && res.data.success) {
         const paperStatistic = res.data.content
         for(let question of paperStatistic.questionStatistics) {
@@ -128,111 +60,31 @@ const paper = {
       } else {
         return false
       }
-      // console.log(res)
-      // const paperStatistic = {
-      //   title: '问卷标题question',
-      //   description: '问卷一',
-      //   questionStatisticList: [
-      //     {
-      //       id: 1,
-      //       type: 1,
-      //       title: '单选题一',
-      //       selectNum:23,
-      //       options: [
-      //         {
-      //           id: 1,
-      //           questionId: 1,
-      //           content: '单选选项一',
-      //           selectNum: 5,
-      //           percent: '22%'
-      //         },
-      //         {
-      //           id: 2,
-      //           questionId: 1,
-      //           content: '单选选项二',
-      //           selectNum: 8,
-      //           percent: '35%'
-      //         },
-      //         {
-      //           id: 3,
-      //           questionId: 1,
-      //           content: '单选选项三',
-      //           selectNum: 10,
-      //           percent: '43%'
-      //         },
-      //       ],
-      //     },
-      //     {
-      //       id: 2,
-      //       type: 2,
-      //       title: '多选题一',
-      //       selectNum:23,
-      //       options: [
-      //         {
-      //           id: 4,
-      //           questionId: 2,
-      //           content: '多选选项一',
-      //           selectNum: 10,
-      //           percent: '43%'
-      //         },
-      //         {
-      //           id: 5,
-      //           questionId: 2,
-      //           content: '多选选项二',
-      //           selectNum: 8,
-      //           percent: '38%'
-      //         },
-      //         {
-      //           id: 6,
-      //           questionId: 2,
-      //           content: '多选选项三',
-      //           selectNum: 19,
-      //           percent: '83%'
-      //         },
-      //         {
-      //           id: 7,
-      //           questionId: 2,
-      //           content: '多选选项4',
-      //           selectNum: 12,
-      //           percent: '52%'
-      //         },
-      //         {
-      //           id: 8,
-      //           questionId: 2,
-      //           content: '多选选项5',
-      //           selectNum: 20,
-      //           percent: '87%'
-      //         },
-      //         {
-      //           id: 9,
-      //           questionId: 2,
-      //           content: '多选选项6',
-      //           selectNum: 5,
-      //           percent: '22%'
-      //         },
-      //       ],
-      //     },
-      //     {
-      //       id: 3,
-      //       type: 3,
-      //       title: '简答',
-      //       selectNum:3,
-      //       options:[{
-      //         id:1,
-      //         content:"今天天气不错"
-      //       },
-      //       {
-      //         id:2,
-      //         content:"今天天气真好"
-      //       },
-      //       {
-      //         id:3,
-      //         content:"啊哈哈哈哈哈"
-      //       }
-      //       ]
-      //     },
-      //   ],
-      // }
+    },
+    getAnswersRow: async({ commit }, paperId) => {
+      console.log(`getAnswerRow with paperId: ${paperId}`)
+      const res = await reviewAnswersAPI(paperId)
+      if(res && res.data.success) {
+        const answerRows = res.data.content
+        const answers = {
+          questions: answerRows[0].length - 1,
+          rows: []
+        }
+        for(let row of answerRows) {
+          const record = {}
+          record.date = row[0]
+          for(let i=1, end=row.length ; i<end; i++) {
+            record['q' + i] = row[i]
+          }
+          answers.rows.push(record)
+        }
+        console.log('get answers')
+        console.log(answers)
+        commit('set_answers', answers)
+        return true
+      } else {
+        return false
+      }
     },
     terminateCollection: async(_, paper) => {
       const paperInfo = { ...paper }

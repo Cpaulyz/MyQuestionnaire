@@ -32,6 +32,7 @@
               type="textarea"
               size="medium"
               rows="4"
+              :disabled="!active"
               v-model="question.answer"
             ></el-input>
             <el-radio-group
@@ -43,7 +44,11 @@
                 :key="option.id"
                 style="margin-bottom: 10px"
               >
-                <el-radio :label="option.sequence" border>
+                <el-radio 
+                  :label="option.sequence" 
+                  border
+                  :disabled="!active"
+                >
                   {{option.content}}
                 </el-radio>
               </div>
@@ -57,9 +62,10 @@
                 :key="option.id"
                 style="margin-bottom: 10px"
               >
-                <el-checkbox :label="option.sequence" border>{{
-                  option.content
-                }}</el-checkbox>
+                <el-checkbox :label="option.sequence" 
+                  :disabled="!active"
+                  border
+                >{{option.content}}</el-checkbox>
               </div>
             </el-checkbox-group>
           </el-form-item>

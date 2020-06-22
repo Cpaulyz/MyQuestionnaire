@@ -35,7 +35,7 @@ const routes = [
         component: () => import('../views/editor/overview/Overview')
       },
       {
-        path: 'create',
+        path: 'create/:paperId',
         name: 'create',
         component: () => import('../views/editor/create/Create')
       },

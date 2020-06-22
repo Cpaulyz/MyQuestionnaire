@@ -31,6 +31,9 @@ axios.interceptors.response.use((response) => {
       return response
     case 404:
       return false
+    case 500:
+      Message.error('服务器异常')
+      return false
     default:
       Message.error(response.data.message)
       return false

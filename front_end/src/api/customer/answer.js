@@ -12,3 +12,10 @@ export function addAnswersAPI(data) {
         data
     })
 }
+
+export function reviewAnswersAPI(paperId) {
+    return axios({
+        url: `${api.answerPre}/${paperId}/reviewAnswers`,
+        method: 'GET'
+    })
+}

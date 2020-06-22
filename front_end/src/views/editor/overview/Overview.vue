@@ -112,7 +112,7 @@ export default {
     editPaper(paperId) {
       this.editOldPaper(paperId).then(res => {
         if(res) {
-          this.$router.push('/editor/create')
+          this.$router.push(`/editor/create/${paperId}`)
         } else {
           this.$notify.success({
             title: '异常问卷，请询问管理员'

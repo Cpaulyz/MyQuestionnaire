@@ -133,6 +133,9 @@ const paper = {
       }
       const res = await addPaperAPI(paperForm)
       // console.log(res)
+      if(!(res && res.data.success)) {
+        return false
+      }
       const paperInfo = res.data.content
       // console.log(paperInfo)
       // const paperInfo = {
@@ -148,6 +151,7 @@ const paper = {
       // console.log(paperInfo)
       commit('set_paperInfo', paperInfo)
       commit('set_questionList', [])
+      return paperInfo.id
     },
     // 继续编辑已有问卷
     editOldPaper: async ({ commit }, paperId) => {

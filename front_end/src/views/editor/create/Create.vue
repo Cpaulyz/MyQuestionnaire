@@ -180,28 +180,45 @@ export default {
       date: ''
     }
   },
-  mounted() {
+  async mounted() {
     console.log('Create with paperInfo & questionList')
+    const paperId = this.$route.params.paperId
+    console.log(`paperId: ${paperId}`)
+    await this.editOldPaper(paperId)
     console.log(this.paperInfo)
     console.log(this.questionList)
-    this.toggleDatepicker(false)
+    // this.toggleDatepicker(false)
+  },
+  watch: {
+    paperInfo() {
+      console.log('paperInfo update')
+      if(this.paperInfo.startTime != null) {
+        this.datepicker = true
+        this.radio = '2'
+        this.date = [
+          new Date(this.paperInfo.startTime),
+          new Date(this.paperInfo.endTime)
+        ]
+      }
+    }
   },
   computed: {
     ...mapGetters(['paperInfo', 'questionList']),
     Listempty() {
       return this.questionList.length !== 0
-    }
+    },
   },
   methods: {
     ...mapActions([
       'createQuestion',
       'updateQuestion',
       'deleteQuestion',
+      'editOldPaper',
       'updatePaperInfo',
       'activatePaper'
     ]),
     changeDate() {
-      // console.log(this.date)
+      console.log(this.date)
       const transfer = date => `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} 00:00:00`
       let startTime = transfer(this.date[0])
       let endTime = transfer(this.date[1])

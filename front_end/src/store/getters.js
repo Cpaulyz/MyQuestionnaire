@@ -10,6 +10,7 @@ const getters = {
   questionList: state => state.paper.currentPaper.questionList,
   // Monitor 相关
   monitorPaper: state => state.customer.paperStatistic,
+  answers: state => state.customer.answers,
   //Overview 相关
   allPapers: state => state.paper.paperList
 }
